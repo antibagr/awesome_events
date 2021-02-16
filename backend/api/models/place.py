@@ -7,7 +7,10 @@ class Place(models.Model):
     But it's nice to have flexible structure
     """
 
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
 
     # Reversed ForeignKey -> place.filters.all
     # Reversed ForeignKey -> place.events.all
+
+    def __str__(self) -> str:
+        return self.name

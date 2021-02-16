@@ -1,5 +1,7 @@
 # WEB
 
+frontend/
+migrations/
 node_modules
 static
 

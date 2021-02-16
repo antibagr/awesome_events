@@ -23,4 +23,4 @@ class Event(TimeBasedModel):
 
 
     def __str__(self) -> str:
-        return f"{self.title}. {self.place} {self.pretty_date(self.start_at)} - {self.pretty_date(self.end_at)} {self.topics}"
+        return f"{self.title}. {self.place} {self.pretty_date(self.start_at)} - {self.pretty_date(self.end_at)} {self.topics.all()}"

@@ -16,10 +16,12 @@ ALLOWED_HOSTS = ["*"] if DEBUG else os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 INSTALLED_APPS = [
 
     # Current project apps
+    'events.apps.EventsConfig',
     'api.apps.ApiConfig',
 
     # third-party installed,
     'graphene_django',
+    'corsheaders',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +42,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    'corsheaders.middleware.CorsMiddleware',
+
     'api.middleware.OnlineUserMiddleware',
+    'events.middleware.IPAccessMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -48,7 +53,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / '..' / 'frontend' / 'public'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,3 +136,8 @@ GRAPHENE = {
     'SCHEMA_OUTPUT': os.path.join(BASE_DIR, 'schema.graphql'),
     'SCHEMA_INDENT': 2,
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+]

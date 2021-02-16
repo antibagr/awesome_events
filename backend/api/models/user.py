@@ -1,19 +1,24 @@
 import datetime
 
-from django.contrib.auth.models import AbstractUser
+# from django.contrib.auth.models import AbstractUser
+from django_passwordless_user.models import AbstractBaseUser
+from django.db import models
 from django.conf import settings
 from django.core.cache import cache
 
 
-class User(AbstractUser):
+class User(AbstractBaseUser):
 
     class Meta:
         db_table = 'user'
 
+    ip = models.GenericIPAddressField(unique=True, db_index=True)
+
+    USERNAME_FIELD = 'ip'
     # Reversed ForeignKey -> user.filters.all
 
     def __str__(self) -> str:
-        return self.username
+        return self.ip
 
     def last_seen(self) -> datetime.datetime:
         return cache.get(f'last_seen_{self.id}') or None

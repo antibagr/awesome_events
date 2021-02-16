@@ -9,8 +9,9 @@ from graphene_django.views import GraphQLView
 
 
 urlpatterns = [
-    path('', include('api.urls')),
+    path('', include('events.urls')),
     path('admin/', admin.site.urls),
+    path('api', include('api.urls')),
     # path('me/', include('account.urls')),
     # path('chat/', include('chat.urls')),
     # path('signup/', account_views.sign_up, name='account-sign-up'),
